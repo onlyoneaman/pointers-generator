@@ -20,7 +20,7 @@ function GptSummaryGenerator() {
   const [summary, setSummary] = useState(initialSummary);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     if(loading) return;
     setLoading(true);
@@ -45,7 +45,7 @@ function GptSummaryGenerator() {
     setLoading(false);
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setInputValue(event.target.value);
   };
 
@@ -53,10 +53,7 @@ function GptSummaryGenerator() {
     if(!summary) return;
     navigator.clipboard.writeText(summary?.trim());
     try {
-      toast('Copied to clipboard', {
-        type: 'success',
-        duration: 2000
-      })
+      toast('Copied to clipboard')
     } catch (error) {
       console.error(error);
     }

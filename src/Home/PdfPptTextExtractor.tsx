@@ -8,7 +8,11 @@ import lightLogo from '../commons/logo-light.png';
 
 const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 
-let initialSummary = ''
+let initialSummary = ``
+
+const SystemMessage = `
+You are an AI assistant. Your client is a busy professional who needs a summary of the script. Provide a summary of the script in at least 10 points.
+`
 
 function GptSummaryGenerator() {
   const [dark, setDark] = useState(false)
@@ -21,10 +25,10 @@ function GptSummaryGenerator() {
     if(loading) return;
     setLoading(true);
     try {
-      const response = await axios.post('https://api.openai.com/v1/chat/completions', {
+      const response = await axios.post( 'https://api.openai.com/v1/chat/completions', {
         "model": "gpt-3.5-turbo",
         "messages": [
-          {"role": "system", "content": "You are an AI assistant. Your client is a busy professional who needs a summary of the script. Provide a summary of the script in points."},
+          {"role": "system", "content": SystemMessage},
           {"role": "user", "content": inputValue},
         ],
         "temperature": 0.7
@@ -122,10 +126,10 @@ function GptSummaryGenerator() {
           </div>
           <div className="flex-1 h-full p-4 sm:p-6 bg-primary text-secondary dark:bg-secondary dark:text-primary">
             <div
-              className="h-full overflow-y-auto flex flex-col justify-between"
+              className="h-full flex flex-col justify-between"
             >
               <p
-                className="w-full p-2 pt-1 font-mono text-lg border border-black dark:border-primary h-full"
+                className="w-full overflow-y-auto p-2 pb-4 pt-1 font-mono text-lg border border-black dark:border-primary h-full"
                 style={{ whiteSpace: 'pre-wrap' }}
               >
                 {summary?.trim()}

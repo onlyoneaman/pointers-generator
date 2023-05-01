@@ -1,9 +1,16 @@
 import GptSummaryGenerator from "./PdfPptTextExtractor";
+import {Toaster} from "sonner";
+import React from "react";
 
 const Home = () => {
 
   return(
-    <GptSummaryGenerator />
+    <>
+      <Toaster
+        position={'top-right'}
+      />
+      <GptSummaryGenerator />
+    </>
   )
 }
 

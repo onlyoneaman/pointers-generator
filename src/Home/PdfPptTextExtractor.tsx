@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import { toast } from 'sonner'
+
 import darkLogo from '../commons/logo-dark.png';
 import lightLogo from '../commons/logo-light.png';
 
@@ -43,6 +45,19 @@ function GptSummaryGenerator() {
     setInputValue(event.target.value);
   };
 
+  const copyText = () => {
+    if(!summary) return;
+    navigator.clipboard.writeText(summary?.trim());
+    try {
+      toast('Copied to clipboard', {
+        type: 'success',
+        duration: 2000
+      })
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div
       className={`${dark?"dark":""} h-[90vh] w-full`}
@@ -63,6 +78,7 @@ function GptSummaryGenerator() {
           >
             <div
               className={"bg-secondary uppercase font-bold text-primary px-4 py-2 mr-4 rounded cursor-pointer dark:bg-primary dark:text-secondary"}
+              onClick={() => window.open("https://www.buymeacoffee.com/restlessmonks", "_blank")}
             >
               Buy me a coffee
             </div>
@@ -115,8 +131,8 @@ function GptSummaryGenerator() {
                 {summary?.trim()}
               </p>
               <div
-                className={`px-4 mt-0 py-2 uppercase w-full text-lg font-bold text-white bg-black cursor-pointer text-center dark:bg-primary dark:text-secondary ${summary?.trim() ? "" : "text-[#86856B] dark:text-[#999]"}`}
-                onClick={() => navigator.clipboard.writeText(summary)}
+                className={`px-4 mt-0 py-2 uppercase w-full text-lg font-bold text-white bg-black cursor-pointer text-center dark:bg-primary dark:text-secondary ${summary?.trim().length>0 ? "" : "!text-[#86856B] !dark:text-[#999]"}`}
+                onClick={() => copyText()}
               >
                 Copy
               </div>

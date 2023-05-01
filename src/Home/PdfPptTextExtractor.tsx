@@ -5,6 +5,8 @@ import { toast } from 'sonner'
 
 import darkLogo from '../commons/logo-dark.png';
 import lightLogo from '../commons/logo-light.png';
+import Lottie from "lottie-react";
+import magicJson from '../commons/character-magic.json'
 
 const API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 
@@ -129,7 +131,22 @@ function GptSummaryGenerator() {
                 className="w-full overflow-y-auto p-2 pb-4 pt-1 font-mono text-lg border border-black dark:border-primary h-full"
                 style={{ whiteSpace: 'pre-wrap' }}
               >
-                {summary?.trim()}
+                {
+                  loading ? (
+                    <div
+                      className={"flex h-full max-w-[400px] mx-auto"}
+                    >
+                      <Lottie
+                        animationData={magicJson}
+                        loop={true}
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      {summary?.trim()}
+                    </div>
+                  )
+                }
               </p>
               <div
                 className={`px-4 mt-0 py-2 uppercase w-full text-lg font-bold text-white bg-black cursor-pointer text-center dark:bg-primary dark:text-secondary ${summary?.trim().length>0 ? "" : "!text-[#86856B] !dark:text-[#999]"}`}

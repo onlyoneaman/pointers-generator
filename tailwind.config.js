@@ -5,5 +5,14 @@ module.exports = {
     extend: {
       opacity: ['disabled']
     }
+  },
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        primary: '#FFFDD3',
+        secondary: '#000000',
+      }
+    }
   }
 }
